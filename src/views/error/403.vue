@@ -31,6 +31,7 @@
 export default {
 	name: '403',
 	title: '没有权限',
+	level_code: 10,
 	methods: {
 		goBack(){
 			this.$router.go(-1);

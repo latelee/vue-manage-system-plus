@@ -31,6 +31,7 @@
 export default {
 	name: '404',
 	title: '找不到页面',
+	level_code: 10,
 	methods: {
 		goBack(){
 			this.$router.go(-1);
