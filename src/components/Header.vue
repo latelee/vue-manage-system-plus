@@ -37,7 +37,7 @@
 				</div>
 				<!-- 用户头像 -->
 				<div class="user-avator">
-					<img src="~@/assets/img/img.jpg">
+					<img :src="imgurl">
 				</div>
 				<!-- 用户名下拉菜单 -->
 				<el-dropdown
@@ -70,6 +70,29 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
+	// data () {
+	// 	return {
+	// 		imgurl: getHeadImg("normal")
+	// 	}
+	// },
+	// getHeadImg () {
+	// 	return require("@/assets/img/img.jpg")
+	// },
+	computed: {
+		imgurl: function () {
+			var level = JSON.parse(sessionStorage.getItem('userInfo')).level;
+			if (level == "admin") {
+				return require("@/assets/img/admin.jpg")
+			} else if (level == "super") {
+				return require("@/assets/img/super.jpg")
+			} else if (level == "verysuper") {
+				return require("@/assets/img/verysuper.jpg")
+			} else {
+				return require("@/assets/img/normal.jpg")
+			}
+			
+		}
+	},
 	setup() {
 	    const router = useRouter()
 	    const store = useStore()

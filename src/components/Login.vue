@@ -104,7 +104,7 @@ export default {
 
 		// 获取当前用户权限菜单等
 	  const getPermissionMenu = async () => {
-			let par = { userName: JSON.parse(sessionStorage['userInfo']).username }
+			let par = { userName: JSON.parse(sessionStorage['userInfo']).nickName }
 			const res = await store.dispatch('user/getPermissionMenu', par)
 			if (res){
 				console.log('接口返回的菜单数组为：', res)

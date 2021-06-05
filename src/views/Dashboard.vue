@@ -9,7 +9,7 @@
 				>
 					<div class="user-info">
 						<img
-							src="@/assets/img/img.jpg"
+							:src="imgurl"
 							class="user-avator"
 							alt
 						>
@@ -309,6 +309,18 @@ export default {
 				roleName = "顶级管理员"
 			}
 			return roleName;
+		},
+		imgurl() {
+			var level = this.userInfo.level;
+			if (level == "admin") {
+				return require("@/assets/img/admin.jpg")
+			} else if (level == "super") {
+				return require("@/assets/img/super.jpg")
+			} else if (level == "verysuper") {
+				return require("@/assets/img/verysuper.jpg")
+			} else {
+				return require("@/assets/img/normal.jpg")
+			}
 		}
 	},
 

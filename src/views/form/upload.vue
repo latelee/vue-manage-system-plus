@@ -104,7 +104,7 @@ export default {
 	},
 	data() {
 		return {
-			defaultSrc: require('@/assets/img/img.jpg'),
+			defaultSrc: require('@/assets/img/normal.jpg'),
 			fileList: [],
 			imgSrc: '',
 			cropImg: '',
