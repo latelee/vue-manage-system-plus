@@ -19,7 +19,7 @@
 		</div>
 		<div class="header-right">
 			<div class="header-user-con">
-				<!-- 消息中心 -->
+				<!-- 消息中心
 				<div class="btn-bell">
 					<el-tooltip
 						effect="dark"
@@ -34,8 +34,8 @@
 						v-if="message"
 						class="btn-bell-badge"
 					/>
-				</div>
-				<!-- 用户头像 -->
+				</div> -->
+				<!-- 用户头像 固定几种权限头像-->
 				<div class="user-avator">
 					<img :src="imgurl">
 				</div>
@@ -70,22 +70,14 @@ import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
 export default {
-	// data () {
-	// 	return {
-	// 		imgurl: getHeadImg("normal")
-	// 	}
-	// },
-	// getHeadImg () {
-	// 	return require("@/assets/img/img.jpg")
-	// },
 	computed: {
 		imgurl: function () {
 			var level = JSON.parse(sessionStorage.getItem('userInfo')).level;
 			if (level == "admin") {
 				return require("@/assets/img/admin.jpg")
-			} else if (level == "super") {
+			} else if (level == "super_admin") {
 				return require("@/assets/img/super.jpg")
-			} else if (level == "verysuper") {
+			} else if (level == "verysuper_admin") {
 				return require("@/assets/img/verysuper.jpg")
 			} else {
 				return require("@/assets/img/normal.jpg")

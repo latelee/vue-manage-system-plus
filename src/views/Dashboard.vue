@@ -303,9 +303,9 @@ export default {
 			var level = this.userInfo.level;
 			if (level == "normal") {
 				roleName = "普通用户"
-			} else if (level == "super") {
+			} else if (level == "super_admin") {
 				roleName = "超级管理员"
-			} else if (level == "verysuper") {
+			} else if (level == "verysuper_admin") {
 				roleName = "顶级管理员"
 			}
 			return roleName;
@@ -314,9 +314,9 @@ export default {
 			var level = this.userInfo.level;
 			if (level == "admin") {
 				return require("@/assets/img/admin.jpg")
-			} else if (level == "super") {
+			} else if (level == "super_admin") {
 				return require("@/assets/img/super.jpg")
-			} else if (level == "verysuper") {
+			} else if (level == "verysuper_admin") {
 				return require("@/assets/img/verysuper.jpg")
 			} else {
 				return require("@/assets/img/normal.jpg")

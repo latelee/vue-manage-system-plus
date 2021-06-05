@@ -146,12 +146,12 @@ const actions = {
 					{ icon: 'el-icon-lx-global', path: '/i18n', title: '国际化功能1111' },
 				],
 			}
-			var outres = menu_admin
-			if (data.level == "normal") {
-				outres = menu_noraml
-			} else if (data.level == "super") {
+			var outres = menu_noraml
+			if (data.level == "admin") {
+				outres = menu_admin
+			} else if (data.level == "super_admin") {
 				outres = menu_superadmin
-			} else if (data.level == "verysuper") {
+			} else if (data.level == "verysuper_admin") {
 				outres = menu_verysuperadmin
 			}
 			

@@ -7,7 +7,7 @@
 
 const state = {
 	tagsList: [],		// 标签页数组
-	collapse: false,	// 是否折叠收起菜单
+	collapse: true,	// 是否折叠收起菜单
 }
 
 // 首页条目

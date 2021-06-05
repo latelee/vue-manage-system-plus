@@ -51,21 +51,29 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
 	document.title = `${to.meta.title} | 后台管理系统`;
 	const token = sessionStorage.getItem('token');
+	let level_code = 0;//JSON.parse(sessionStorage.getItem('userInfo')).level_code;
 	const permissionMenu = store.state.user.permissionMenu;
+	console.log("to.path: ", to, permissionMenu, level_code)
 	if (!token && to.path !== '/login') { // 未登录重定向到登录（除了登录页，其他都需要登录后才能进入）
 		next('/login');
 	}
+	// 不能依赖菜单的权限，因为本函数在菜单显示之前，应该在页面中指定权限的
+	// 对应权限对应菜单
+	// 后续：权限使用数字，这样方便比较
 	else if (permissionMenu.length > 0 && JSON.stringify(permissionMenu).indexOf(to.path) === -1) { // 防止用户通过敲击路由的方式，进入未授权菜单
 		// 进入未授权页面，假如在白名单内，直接进入
 		if (whiteList.find((v) => v === to.path)) {
+			console.log("next1111.....")
 			next();
 		}
 		// 进入未授权页面，假如未在白名单内，重定向到403
 		else {
+			console.log("next403.....")
 			next('/error/403');
 		}
 	}
 	else {
+		console.log("next22222.....")
 		next();
 	}
 	

@@ -1,4 +1,5 @@
-<template>
+			// :width="collapse?'64px':'300px'"
+<template slot="title">
 	<div class="sidebar">
 		<el-menu
 			class="sidebar-el-menu"
@@ -18,7 +19,7 @@
 					>
 						<template #title>
 							<i :class="item.icon" />
-							<span>{{ item.title }}</span>
+							<span slot="title">{{ item.title }}</span>
 						</template>
 						<template v-for="subItem in item.children">
 							<!-- 二级菜单，含子菜单 -->
@@ -57,7 +58,8 @@
 						:index="item.path"
 					>
 						<i :class="item.icon" />
-						{{ item.title }}
+						<!-- {{ item.title }} -->
+						<span slot="title">{{ item.title }}</span>
 					</el-menu-item>
 				</template>
 			</template>
@@ -81,6 +83,7 @@ export default {
 		const collapse = computed(() => {
 			return store.state.system.collapse;
 		})
+		// 权限菜单在data字段中
 		const menuItems = computed(() => {
 			return store.state.user.permissionMenu.data
 		})
@@ -153,7 +156,7 @@ export default {
     width: 0;
 }
 .sidebar-el-menu:not(.el-menu--collapse) {
-    width: 250px;
+    width: 200px;
 }
 .sidebar > ul {
     height: 100%;
