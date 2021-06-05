@@ -1,9 +1,6 @@
 <template>
 	<div class="login-wrap">
 		<div class="ms-login">
-			<div class="ms-title">
-				XX后台管理系统
-			</div>
 			<el-form
 				ref="elmRefs"
 				:model="param"
@@ -14,7 +11,7 @@
 				<el-form-item prop="userName">
 					<el-input
 						v-model="param.userName"
-						placeholder="userName"
+						placeholder="用户名"
 						@keyup.enter="submitForm()"
 					>
 						<template #prepend>
@@ -22,11 +19,11 @@
 						</template>
 					</el-input>
 				</el-form-item>
-				<el-form-item prop="password">
+				<el-form-item prop="passWord">
 					<el-input
-						v-model="param.password"
-						type="password"
-						placeholder="password"
+						v-model="param.passWord"
+						type="passWord"
+						placeholder="密码"
 						@keyup.enter="submitForm()"
 					>
 						<template #prepend>
@@ -43,8 +40,7 @@
 					</el-button>
 				</div>
 				<p class="login-tips">
-					Tips : 用户名和密码（admin 123123或者user
-					123123），admin具有全部菜单权限，user暂时返回4个菜单，可根据自己的需求自由分配菜单。
+					本系统仅供内部使用
 				</p>
 			</el-form>
 		</div>
@@ -72,12 +68,12 @@ export default {
 		const elmRefs = ref(null);
 		const rules = {
 			userName: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-			password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+			passWord: [{ required: true, message: '请输入密码', trigger: 'blur' }],
 		};
 		const state = reactive({
 			param: {
-				userName: 'tom3',
-				password: '123123',
+				userName: 'admin',
+				passWord: 'admin',
 			},
 		});
 
@@ -100,7 +96,6 @@ export default {
 		// 登录
 		const toLogin = async () => {
 			const res = await store.dispatch('user/login', state.param);
-			console.log(res);
 			if (res) {
 				await getPermissionMenu()
 				router.push('/dashboard');
@@ -109,7 +104,7 @@ export default {
 
 		// 获取当前用户权限菜单等
 	  const getPermissionMenu = async () => {
-			let par = { userName: JSON.parse(sessionStorage['userInfo']).nickName }
+			let par = { userName: JSON.parse(sessionStorage['userInfo']).username }
 			const res = await store.dispatch('user/getPermissionMenu', par)
 			if (res){
 				console.log('接口返回的菜单数组为：', res)

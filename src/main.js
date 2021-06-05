@@ -10,7 +10,7 @@ import {
 	debounce,
 	throttle,
 } from '@/common/utils'
-require('./mock')
+// require('./mock')
 
 const app = createApp(App)
 installElementPlus(app)

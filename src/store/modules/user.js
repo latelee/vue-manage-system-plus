@@ -22,6 +22,7 @@ const state = {
 
 // 更改 Vuex 的 store 中的状态的唯一方法是提交 mutation。统一入口，常量命名，必须是同步函数
 // 使用方法：可以在组件中使用 this.$store.commit('user/xxx') 提交 mutation。但是建议少直接调用，而是通过Action 方法触发
+// 注：userInfo应该是外面传递的参数的成员，但外面直接赋值，是否可行？
 const mutations = {
 	DO_LOGIN(state, payload) {
 		// state.loginProvider = payload.provider;
@@ -30,6 +31,7 @@ const mutations = {
 		/* cache.put('token', payload.userInfo.token, 60 * 60 * 8)
 		cache.put('userInfo', payload.userInfo, 60 * 60 * 8) 	// 只包含部分用户信息 */
 		sessionStorage['token'] = payload.userInfo.token
+		// LL TODO：减少一些字符串。。。
 		sessionStorage['userInfo'] = JSON.stringify(payload.userInfo)
 	},
 	DO_LOGOUT(state) {
@@ -69,23 +71,8 @@ const actions = {
 				if (!result) {
 					return
 				}
-				commit('DO_LOGIN', { userInfo: result })
+				commit('DO_LOGIN', { userInfo: result.data })
 				rs(result)
-			}).catch(err => {
-				rj(err)
-			})
-		})
-	},
-	// 第三方平台登录
-	thirdLogin({ commit }, data) {
-		return new Promise((rs, rj) => {
-			// 返回部分用户信息
-			thirdpartyLogin(data).then(res => {
-				if (!res) {
-					return
-				}
-				commit('DO_LOGIN', { userInfo: res })
-				rs(res)
 			}).catch(err => {
 				rj(err)
 			})
@@ -123,48 +110,53 @@ const actions = {
 	},
 	// 获取用户权限菜单
 	getPermissionMenu({ commit }, data) {
+		console.log("1111 data ", data)
 		return new Promise((rs, rj) => {
 			// 返回部分用户信息
-			let res = {
-				error: 0,
+			var menu_noraml = {
+				code: 0,
 				msg: 'ok',
-				time: 1620466240,
-				body: [
-					{
-						icon: 'el-icon-lx-home',
-						path: '/dashboard',
-						title: '系统首页'
-					},
-					{
-						icon: 'el-icon-lx-cascades',
-						path: '/baseTable',
-						title: '基础表格'
-					},
-					{
-						icon: 'el-icon-lx-global',
-						path: '/i18n',
-						title: '国际化功能'
-					},
-					/* {
-						icon: 'el-icon-lx-warn',
-						path: '/error',
-						title: '错误处理',
-						children: [
-							{
-								path: '/error/403',
-								title: '403页面'
-							},
-							{
-								path: '/error/404',
-								title: '404页面'
-							}
-						]
-					}, */
-					
+				data: [
+					{ icon: 'el-icon-lx-home', path: '/dashboard', title: '系统首页' },
 				],
 			}
-			commit('SET_PERMISSIONMENU', { permissionMenu: res })
-			rs(res)
+			var menu_admin = {
+				code: 0,
+				msg: 'ok',
+				data: [
+					{ icon: 'el-icon-lx-home', path: '/dashboard', title: '系统首页' },
+					{ icon: 'el-icon-lx-cascades', path: '/baseTable', title: '基础表格' },
+				],
+			}
+			var menu_superadmin = {
+				code: 0,
+				msg: 'ok',
+				data: [
+					{ icon: 'el-icon-lx-home', path: '/dashboard', title: '系统首页' },
+					{ icon: 'el-icon-lx-cascades', path: '/baseTable', title: '基础表格' },
+					{ icon: 'el-icon-lx-global', path: '/i18n', title: '国际化功能' },
+				],
+			}
+			var menu_verysuperadmin = {
+				code: 0,
+				msg: 'ok',
+				data: [
+					{ icon: 'el-icon-lx-home', path: '/dashboard', title: '系统首页' },
+					{ icon: 'el-icon-lx-cascades', path: '/baseTable', title: '基础表格' },
+					{ icon: 'el-icon-lx-global', path: '/i18n', title: '国际化功能1111' },
+				],
+			}
+			var outres = menu_admin
+			if (data.level == "normal") {
+				outres = menu_noraml
+			} else if (data.level == "super") {
+				outres = menu_superadmin
+			} else if (data.level == "verysuper") {
+				outres = menu_verysuperadmin
+			}
+			
+			commit('SET_PERMISSIONMENU', { permissionMenu: outres })
+			rs(outres)
 		})
 	},
 }

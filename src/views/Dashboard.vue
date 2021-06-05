@@ -15,18 +15,18 @@
 						>
 						<div class="user-info-cont">
 							<div class="user-info-name">
-								{{ userInfo.nickName }}
+								{{ userInfo.username }}
 							</div>
 							<div>{{ role }}</div>
 						</div>
 					</div>
 					<div class="user-info-list">
 						上次登录时间：
-						<span>{{ userInfo.loginDate }}</span>
+						<span>2021</span>
 					</div>
 					<div class="user-info-list">
 						上次登录地点：
-						<span>{{ userInfo.loginCity }}</span>
+						<span>南宁</span>
 					</div>
 				</el-card>
 				<el-card
@@ -191,7 +191,6 @@ export default {
 	},
 	data() {
 		return {
-			// name: JSON.parse(sessionStorage.getItem('userInfo')).nickName,
 			todoList: [
 				{
 					title: '今天要修复100个bug',
@@ -295,11 +294,21 @@ export default {
 	},
 	computed: {
 		userInfo() {
+			// 登录时已经赋值了
 			let userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 			return userInfo
 		},
 		role() {
-			return this.userInfo.nickName === 'admin' ? '超级管理员' : '普通用户';
+			var roleName = "管理员"
+			var level = this.userInfo.level;
+			if (level == "normal") {
+				roleName = "普通用户"
+			} else if (level == "super") {
+				roleName = "超级管理员"
+			} else if (level == "verysuper") {
+				roleName = "顶级管理员"
+			}
+			return roleName;
 		}
 	},
 

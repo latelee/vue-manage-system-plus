@@ -15,7 +15,7 @@
 			/>
 		</div>
 		<div class="logo">
-			物息院文档后台管理系统
+			后台管理系统
 		</div>
 		<div class="header-right">
 			<div class="header-user-con">
@@ -46,7 +46,7 @@
 					@command="handleCommand"
 				>
 					<span class="el-dropdown-link">
-						{{ userInfo.nickName }}
+						{{ userInfo.username }}
 						<i class="el-icon-caret-bottom" />
 					</span>
 					<template #dropdown>
