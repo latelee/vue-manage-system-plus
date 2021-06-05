@@ -110,9 +110,9 @@ const actions = {
 	},
 	// 获取用户权限菜单
 	getPermissionMenu({ commit }, data) {
-		console.log("1111 data ", data)
+		console.log("1111 data ", data, data.level)
 		return new Promise((rs, rj) => {
-			// 返回部分用户信息
+			// 根据不同权限返回不同菜单，只在此处添加即可
 			var menu_noraml = {
 				code: 0,
 				msg: 'ok',

@@ -3,6 +3,8 @@ import Home from '@/views/Home.vue'
 import store from '@/store'
 import { whiteList } from '@/common/config'
 
+import { webtitle } from '@/settings.js'
+
 // lss 2021/5/14。路由配置，改成自动读取views下文件动态配置，
 // 可解决多人开发时路由不易维护的难题（也可获取接口动态路由然后使用addRoutes注册）
 const contextInfo = require.context( // 获取文件，自动挂载在router下
@@ -54,7 +56,8 @@ const router = createRouter({
 
 // 全局钩子
 router.beforeEach((to, from, next) => {
-	document.title = `${to.meta.title} | 后台管理系统`;
+	// 页面标题
+	document.title = `${to.meta.title} - ${webtitle}`;
 	const token = sessionStorage.getItem('token');
 	// 似乎不是正道 有token必须登录成功
 	let level_code = 10;

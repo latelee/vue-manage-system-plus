@@ -15,7 +15,7 @@
 			/>
 		</div>
 		<div class="logo">
-			后台管理系统
+			{{ logo_title }}
 		</div>
 		<div class="header-right">
 			<div class="header-user-con">
@@ -68,6 +68,7 @@
 import { reactive, onMounted, computed, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
+import { webtitle } from '@/settings'
 
 export default {
 	computed: {
@@ -82,8 +83,10 @@ export default {
 			} else {
 				return require("@/assets/img/normal.jpg")
 			}
-			
-		}
+		},
+		logo_title: function() {
+			return webtitle; // 与页面标题一致
+		},
 	},
 	setup() {
 	    const router = useRouter()
