@@ -43,7 +43,9 @@ const routes = [
 ];
 
 const router = createRouter({
-	history: createWebHashHistory(),
+	// history: createWebHashHistory(),
+	history: createWebHistory(), // process.env.BASE_URL
+	// mode: 'history', // for 2.0
 	routes
 });
 

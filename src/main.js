@@ -17,8 +17,8 @@ installElementPlus(app)
 app.config.globalProperties.$filters = filters
 // 全局方法
 app.config.globalProperties.$utils = {
-	debounce,
-	throttle,
+	debounce, // 函数去抖
+	throttle, // 函数节流	
 }
 // 全局 mixin
 app.mixin(mixins)
